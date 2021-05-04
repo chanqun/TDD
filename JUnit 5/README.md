@@ -6,7 +6,41 @@
 
 2.1. Annotations
 
-- @Test
-  test method 임을 나타냄 junit 4의 annotation과 다르다.
-  override하지 않는 한 상속 된다. (사용해보며 의미 확인하기)
+Test Class
 
+: any top-level class, static member class, or @Nested class that contains at least one test method
+
+Test classes must not be abstract and must have a single constructor.
+
+Test Method
+
+- @Test
+  Denotes that a method is a test method.
+
+- @ParameterizedTest
+
+  parameterized tests make it possible to run a test multiple times with different arguments. they are declared just likt regular @Test methods but the @ParameterizedTest annotation instead
+
+- @RepeatedTest
+  JUnit Jupiter provides the ability to repeat a test a specified number of times by annotating a method with @RepeatedTest and specifying the total number of repetitions desired
+
+- @TestFactory
+
+  @Test These test cases are static in the sense that they are fully specified at compile time, and their behavior cannot be changed by anything happening at runtime. Assumptions provide a basic form of dynamic behavior but are intentionally rather limited in their expressiveness (의도적 표현)
+
+- @TestTemplate
+
+Lifecycle method
+
+- @BeforeAll
+- @AfterAll
+- @BeforeEach
+- @AfterEach
+
+
+
+
+
+2.1.1 Meta-Annotations and Composed Annotation
+
+meta-annotation means that you can define your own composed annotation that will automatically inherit the semantics of its meta-annotations 

@@ -1,7 +1,6 @@
 package com.example.project;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyFirstJUnitJupiterTests {
@@ -13,4 +12,8 @@ public class MyFirstJUnitJupiterTests {
         assertEquals(2, calculator.add(1, 1));
     }
 
+    @FastTest
+    void myFastTest() {
+
+    }
 }
