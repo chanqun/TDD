@@ -33,11 +33,27 @@ Test Method
 Lifecycle method
 
 - @BeforeAll
+
 - @AfterAll
+
+  -> class내의 모든 method가 실행 된다고 할 때 @BeforeAll, @AfterAll
+
 - @BeforeEach
+
+  denotes that the method should be executed before each 
+  @Test, @RepeatedTest, @ParameterizedTest, @TestFactory method in the current class
+
 - @AfterEach
 
+  denotes that the annotated method should be executed after each
+  @Test, @RepeatedTest, @ParameterizedTest, @TestFactory method in the current class
 
+  -> 각각의 method가 실행될 때 @BeforeEach, @AfterEach
+
+Others
+
+- @Displayname - other sentence, emoji 
+- @DisplayNameGenetration(DisplayNameGenerator.ReplaceUnderscores.class) 
 
 
 
