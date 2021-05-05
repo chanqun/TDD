@@ -220,7 +220,7 @@ OS, JRE, ENV, customCondition을 이용해 skip or not 가능
 
 
 
-#### 2.9. Test Excution Order
+### 2.9. Test Excution Order
 
 @TestMethodOrder (DisplayName, MethodName, OrderAnnotation, Random, 
 
@@ -228,7 +228,7 @@ Alphanumeric -> MethodName)
 
 
 
-#### 2.10. Test Instance Lifecycle
+### 2.10. Test Instance Lifecycle
 
 per-class: class 당 인스턴스가 생성,
 
