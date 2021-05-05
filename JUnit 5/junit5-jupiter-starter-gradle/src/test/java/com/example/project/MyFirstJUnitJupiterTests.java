@@ -3,7 +3,7 @@ package com.example.project;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MyFirstJUnitJupiterTests {
+class MyFirstJUnitJupiterTests {
 
     private final Calculator calculator = new Calculator();
 

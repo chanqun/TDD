@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class DisplayNameGeneratorDemo {
+class DisplayNameGeneratorDemo {
     @Nested
     class A_year_is_not_supported {
 

@@ -171,38 +171,7 @@ Test classes and test methods can declare custom display names via @DisplayName
 
 Standard, Simple, ReplaceUnderscores, IndicativeSentences
 
-```java
-package com.example.project;
-
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
-public class DisplayNameGeneratorDemo {
-    @Nested
-    class A_year_is_not_supported {
-
-        @Test
-        void if_it_is_zero() {
-
-        }
-
-    }
-
-    @Nested
-    @IndicativeSentencesGeneration(separator = "->", generator = DisplayNameGenerator.ReplaceUnderscores.class)
-    class A_year_is_a_leap_year {
-
-        @ParameterizedTest(name = "Year {0} is a leap year")
-        @ValueSource(ints = {2016, 2020, 2048})
-        void if_it_is_one_of_the_following_years(int year) {
-
-        }
-
-    }
-}
-
-```
+> DisplayNameGeneratorDemo .java
 
 2.3.2 Setting the Default Display Name Generator
 
@@ -220,3 +189,54 @@ AssertJ, Hamcrest, Truth
 
 ### 2.5. Assumptions
 
+특정 환경에서만 테스트를 실행할 수 있다.
+특정 환경이 아니라면 test를 skip한다.
+
+//현재는 null -  LOCAL, BETA, RC, REAL등 특정 환경을 설정할 수 있을 것이다.
+
+```java
+System.getEnv("ENV");
+```
+
+### 2.6. Disabling Tests
+
+test skipped
+
+@Disabled
+
+
+
+##### 2.7. Conditional Test Execution
+
+-> ExecutionCondition 5.3.
+
+#### Operating System Conditions
+
+OS, JRE, ENV, customCondition을 이용해 skip or not 가능
+
+##### 2.8. Tagging and Filtering
+
+4.6. Tag Expressions에서 조건으로 사용함
+
+
+
+#### 2.9. Test Excution Order
+
+@TestMethodOrder (DisplayName, MethodName, OrderAnnotation, Random, 
+
+Alphanumeric -> MethodName)
+
+
+
+#### 2.10. Test Instance Lifecycle
+
+per-class: class 당 인스턴스가 생성,
+
+per-method: method당 인스턴스가 생성
+
+@TestInstance(Lifecycle.PER_CLASS)
+"per-class" mode has some additional benefits over the default "per-method" mode
+
+with the "per-class"mode it becomes possible to declare @BeforeAll and @AfterAll on non-static methods
+
+--> ??? static method가 없는 kotlin에서도 @BeforeAll, @AfterAll 사용할 수 있게 된다.

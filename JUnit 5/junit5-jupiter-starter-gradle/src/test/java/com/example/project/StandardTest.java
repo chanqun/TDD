@@ -5,12 +5,11 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public class StandardTest {
+class StandardTest {
 
-    //? BeforeAll은 왜 static?
-    @BeforeAll //클래스를 초기화할 때 딱 한 번
+    @BeforeAll
     static void initAll() {
-
+        System.out.println("initAll");
     }
 
     @BeforeEach
@@ -29,7 +28,7 @@ public class StandardTest {
     }
 
     @Test
-    @Disabled("for demonstration purposes") //붙이면 무시됨
+    @Disabled("for demonstration purposes")
     void skippedTest() {
 
     }
@@ -47,6 +46,6 @@ public class StandardTest {
 
     @AfterAll
     static void tearDownAll() {
-
+        System.out.println("tearDownAll");
     }
 }

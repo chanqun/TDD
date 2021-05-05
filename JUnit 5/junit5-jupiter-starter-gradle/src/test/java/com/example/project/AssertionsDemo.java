@@ -12,7 +12,7 @@ import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofMinutes;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AssertionsDemo {
+class AssertionsDemo {
 
     private final Calculator calculator = new Calculator();
     private final Person person = new Person("Jane", "Doe");
@@ -65,6 +65,7 @@ public class AssertionsDemo {
             Thread.sleep(100);
         });
     }
+
 
     @Test
     void timeoutExceededWithPreemptiveTermination() {
