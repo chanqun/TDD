@@ -105,6 +105,18 @@ public @interface FastTest {
 
 #### 2.2. Test Classes and methods
 
+> !! BeforeAll에서 static을 사용하는 이유
+> 기본적으로 테스트는 서로 독립적이어야 한다. 
+> 테스트 순서 때문에 테스트의 성공 여부가 결정되면 안 된다.
+>
+> 1. @Test메소드마다 클래스의 인스턴스를 새롭게 만든다.
+> 2. @BeforeEach라고 붙은 setUp 메소드를 실행한다.
+>
+> 그렇다면 @BeforeAll은 언제 사용될까?
+> 되도록이면 사용하지 않는 것이 맞다.
+> 하지만 초기화를 하면 아주 시간이 오래걸리는 작업이 존재한다. 또는 수백메가의 데이터를 읽어들이거나
+> 이런 경우, 테스트가 서로 영향을 주지 않는 선에서 초기화하는 작업을 @BeforeAll에 static으로 사용한다.
+
 ```java
 package com.example.project;
 
@@ -240,3 +252,11 @@ per-method: method당 인스턴스가 생성
 with the "per-class"mode it becomes possible to declare @BeforeAll and @AfterAll on non-static methods
 
 --> ??? static method가 없는 kotlin에서도 @BeforeAll, @AfterAll 사용할 수 있게 된다.
+
+
+
+### 2.11 Nested Tests
+
+@Nested tests give the test writer more capabilities to express the relationship among several groups of tests. Such nested tests make use of Java's nested classes and facilitate **hierarchical** thinking about the test structure.
+
+> TestingAStackDemo.java
