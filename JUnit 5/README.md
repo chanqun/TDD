@@ -255,8 +255,37 @@ with the "per-class"mode it becomes possible to declare @BeforeAll and @AfterAll
 
 
 
-### 2.11 Nested Tests
+### 2.11. Nested Tests
 
 @Nested tests give the test writer more capabilities to express the relationship among several groups of tests. Such nested tests make use of Java's nested classes and facilitate **hierarchical** thinking about the test structure.
 
 > TestingAStackDemo.java
+
+### 2.12. Dependency Injection for Constructors and Methods
+
+As one of the major changes in JUnit Jupiter, both test constructors and methods are now **permitted to have parameters**
+
+1. TestInfoParameterResolver
+   TestInfo를 constructor에서 받을 수 있다.
+
+   getDisplayName, getTages, getTestClass, getTestMethod, toString
+
+   > TestInfoDemo.java
+
+2. RepetitionInfoParameterResolver -> 2.14.1에서 다루겠음
+   if a method parameter in a @RepeatedTest, @BeforeEach, @AfterEach method is of type RepetitionInfo
+
+3. TestReporterParameterResolver
+
+   if a constructor or method parameter is of type TestReporter 
+
+   => publishing a new entry to the report
+
+   > TestReporterDemo.java
+
+4. RandomParametersExtension @Since5.2 -> 5. Extension Model
+
+
+
+### 2.13. Test Interfaces and Default Methods
+
