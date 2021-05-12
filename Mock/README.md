@@ -47,5 +47,14 @@ mock 정상적인 사람에게 전달 되었는지 확인
 
 classic TDD 는 실제 데이터를 이용 mockist 는 mock을 이용 상황에 맞춰서 적절하게 사용할 수 있어야한다.
 
+##### Test Isolation!!!
+
+**Coupling Test to Implementations** 
+
+> more flexible refactoring
 
 
+
+두개의 service가 있지만 이름으로 매칭하기 때문에 문제 없다.
+
+>  InjectTestService.kt
