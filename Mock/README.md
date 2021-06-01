@@ -58,3 +58,119 @@ classic TDD 는 실제 데이터를 이용 mockist 는 mock을 이용 상황에 
 두개의 service가 있지만 이름으로 매칭하기 때문에 문제 없다.
 
 >  InjectTestService.kt
+
+
+```kotlin
+package com.example.chanqun.user.service
+
+import com.example.chanqun.user.domain.DuplicatedEmailException
+import com.example.chanqun.user.domain.User
+import com.example.chanqun.user.domain.UserRepository
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.junit.jupiter.api.Test
+import org.springframework.data.domain.Example
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import java.util.*
+
+class DomainUserServiceMockingTest {
+    @Test
+    fun `리포지토리를 이용해서 User 신규 등록`() {
+        var user = User("Charlie", "ch@gmail.com")
+
+        val userRepository = UserRepositoryStub()
+        val userService = DomainUserService(userRepository)
+
+        user = userService.register(user)
+
+        assertThat(user.id).isNotNull
+  }
+
+    @Test
+    fun `이메일 중복이 있으면 DuplicatedEmailException 발생`() {
+        var user = User("chanqun", "cksgns93@naver.com")
+
+        var userRepository = UserRepositoryStub()
+        val userService = DomainUserService(userRepository)
+
+        userService.register(user)
+
+        var user2 = User("Len", "cksgns93@naver.com")
+
+        assertThatThrownBy{userService.register(user2)}
+          .isInstanceOf(DuplicatedEmailException::class.java)
+    }
+
+    @Test
+    fun `리포지토리를 이용해서 User 신규 등록할 떄 findByEmail과 save 호출`() {
+        var user = User("chanqun", "cksgns93@naver.com")
+
+        val userRepositoryMock = UserRepositoryMock()
+        val userService = DomainUserService(userRepositoryMock)
+
+        user = userService.register(user)
+
+        assertThat(user.id).isNotNull()
+
+        assertThat(userRepositoryMock.callFindByEmail).isEqualTo(1)
+        assertThat(userRepositoryMock.callSave).isEqualTo(1)
+        assertThat(userRepositoryMock.lastSavedUser).isEqualTo(user)
+    }
+
+    @Test
+    fun `이메일 중복이 있으면 DuplicatedEmailException 발생 - save는 호출하지 않음`() {
+        var user = User("chanqun", "cksgns93@naver.com")
+
+        var userRepositoryMock = UserRepositoryMock()
+        var userService = DomainUserService(userRepositoryMock)
+
+        userService.register(user)
+
+        var user2 = User("wty", "cksgns93@naver.com")
+
+        assertThatThrownBy{userService.register(user2)}
+          .isInstanceOf(DuplicatedEmailException::class.java)
+
+        assertThat(userRepositoryMock.callFindByEmail).isEqualTo(2)
+        assertThat(userRepositoryMock.callSave).isEqualTo(1)
+    }
+}
+
+class UserRepositoryMock() : UserRepositoryAdapter() {
+    val userMap =hashMapOf<String, User>()
+    var callFindByEmail = 0
+    var callSave = 0
+    var lastSavedUser: User? = null
+
+    override fun findByEmail(email: String): User? {
+        callFindByEmail++
+        return userMap[email]
+    }
+
+    override fun <S : User?> save(user: S): S {
+        callSave++
+        lastSavedUser = user
+
+        user!!.id = 1
+        userMap[user.email] = user
+        return user
+    }
+}
+
+class UserRepositoryStub() : UserRepositoryAdapter() {
+    val userMap =hashMapOf<String, User>()
+
+    override fun findByEmail(email: String): User? {
+        return userMap[email]
+    }
+
+    override fun <S : User?> save(entity: S): S {
+        entity!!.id = 1
+        userMap[entity.email] = entity
+        return entity
+    }
+}
+
+```
